@@ -150,7 +150,7 @@ func initPinger(host string) (*ping.Pinger, error) {
 			stats.Addr,
 		)
 		fmt.Printf(
-			"%s: %v transmitted => %v received, (%v loss)\n",
+			"%s: %v transmitted => %v received (%v loss)\n",
 			color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
 			color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
 			color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
