@@ -86,6 +86,11 @@ func run(cliArgs []string) (exitCode, error) {
 		return exitCodeOK, nil
 	}
 
+	if len(args) == 0 {
+		// nolint:goerr113
+		return exitCodeErrArgs, errors.New("must requires an argument")
+	}
+
 	if 1 < len(args) {
 		// nolint:goerr113
 		return exitCodeErrArgs, errors.New("too many arguments")
@@ -143,10 +148,10 @@ func initPinger(host string) (*ping.Pinger, error) {
 			stats.Addr,
 		)
 		fmt.Printf(
-			"%s %v packets transmitted => %v packets received, (%v packet loss)\n",
+			"%s %v transmitted => %v received, (%v loss)\n",
 			color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATICS"),
-			color.New(color.FgHiCyan, color.Bold).Sprintf("%d", stats.PacketsSent),
-			color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsRecv),
+			color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
+			color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
 			color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
 		)
 		fmt.Printf(
