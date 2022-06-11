@@ -13,6 +13,7 @@ import (
 	"github.com/jessevdk/go-flags"
 )
 
+// nolint:gochecknoglobals
 var pingu = []string{
 	` ...        .     ...   ..    ..     .........           `,
 	` ...     ....          ..  ..      ... .....  .. ..      `,
@@ -127,7 +128,7 @@ func initPinger(host string) (*ping.Pinger, error) {
 	}()
 
 	fmt.Printf(
-		"PING %s (%s):\n",
+		"PING %s (%s) type `Ctrl-C` to abort\n",
 		pinger.Addr(),
 		pinger.IPAddr(),
 	)
