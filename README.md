@@ -27,7 +27,11 @@
 
 ## Installation
 
-Clone this repository then run `go install`
+You can download executable binary from the latest release page.
+
+> [latest release](https://github.com/sheepla/pingu/releases/latest)
+
+To build from source, clone this repository then run `go install`.
 
 ## LICENSE
 
