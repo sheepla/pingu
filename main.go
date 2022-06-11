@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"runtime"
 	"strings"
 
 	"github.com/fatih/color"
@@ -163,6 +164,10 @@ func initPinger(host string) (*ping.Pinger, error) {
 			color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 		)
 	}
+
+    if runtime.GOOS == "windows" {
+        pinger.SetPrivileged(true)
+    }
 
 	return pinger, nil
 }
