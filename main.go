@@ -165,9 +165,9 @@ func initPinger(host string) (*ping.Pinger, error) {
 		)
 	}
 
-    if runtime.GOOS == "windows" {
-        pinger.SetPrivileged(true)
-    }
+	if runtime.GOOS == "windows" {
+		pinger.SetPrivileged(true)
+	}
 
 	return pinger, nil
 }
