@@ -21,7 +21,7 @@
 
 <div align="center" width="70%">
 
-![screenshot](https://user-images.githubusercontent.com/62412884/173189087-89a895a4-818b-4cba-a3df-6f8a614e13f2.png)
+![screenshot](https://user-images.githubusercontent.com/62412884/173192079-a6229925-2575-476c-9bb1-b5f0c6e2dbfc.png)
 
 </div>
 
