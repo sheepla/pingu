@@ -19,9 +19,9 @@
 
 </div>
 
-<div align="center" width="70%">
+<div align="center">
 
-![screenshot](https://user-images.githubusercontent.com/62412884/173192079-a6229925-2575-476c-9bb1-b5f0c6e2dbfc.png)
+<img src="https://user-images.githubusercontent.com/62412884/173192079-a6229925-2575-476c-9bb1-b5f0c6e2dbfc.png" width="70%" alt="screenshot" />
 
 </div>
 
