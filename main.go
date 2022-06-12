@@ -151,7 +151,7 @@ func pingerOnrecv(pkt *ping.Packet) {
 		renderASCIIArt(pkt.Seq),
 		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%s", pkt.IPAddr),
+		color.New(color.FgWhite, color.Bold).Sprintf("%s", pkt.IPAddr),
 		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.Ttl),
 		color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
 	)
