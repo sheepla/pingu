@@ -127,50 +127,55 @@ func initPinger(host string) (*ping.Pinger, error) {
 		}
 	}()
 
-	fmt.Printf(
+	color.New(color.FgHiWhite, color.Bold).Printf(
 		"PING %s (%s) type `Ctrl-C` to abort\n",
 		pinger.Addr(),
 		pinger.IPAddr(),
 	)
 
-	pinger.OnRecv = func(pkt *ping.Packet) {
-		fmt.Printf("%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
-			renderASCIIArt(pkt.Seq),
-			color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
-			color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
-			color.New(color.FgHiBlue, color.Bold).Sprintf("%s", pkt.IPAddr),
-			color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.Ttl),
-			color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
-		)
-	}
-
-	pinger.OnFinish = func(stats *ping.Statistics) {
-		fmt.Printf(
-			"\n───── %s ping statistics ─────\n",
-			stats.Addr,
-		)
-		fmt.Printf(
-			"%s: %v transmitted => %v received (%v loss)\n",
-			color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
-			color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
-			color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
-			color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
-		)
-		fmt.Printf(
-			"%s: min=%v avg=%v max=%v stddev=%v\n",
-			color.New(color.FgHiWhite, color.Bold).Sprintf("ROUND TRIP"),
-			color.New(color.FgHiBlue, color.Bold).Sprintf("%v", stats.MinRtt),
-			color.New(color.FgHiCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
-			color.New(color.FgHiGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
-			color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
-		)
-	}
+	pinger.OnRecv = pingerOnrecv
+	pinger.OnFinish = pingerOnFinish
 
 	if runtime.GOOS == "windows" {
 		pinger.SetPrivileged(true)
 	}
 
 	return pinger, nil
+}
+
+// nolint:forbidigo
+func pingerOnrecv(pkt *ping.Packet) {
+	fmt.Printf("%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
+		renderASCIIArt(pkt.Seq),
+		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
+		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
+		color.New(color.FgHiBlue, color.Bold).Sprintf("%s", pkt.IPAddr),
+		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.Ttl),
+		color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
+	)
+}
+
+// nolint:forbidigo
+func pingerOnFinish(stats *ping.Statistics) {
+	color.New(color.FgWhite, color.Bold).Printf(
+		"\n───── %s ping statistics ─────\n",
+		stats.Addr,
+	)
+	fmt.Printf(
+		"%s: %v transmitted => %v received (%v loss)\n",
+		color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
+		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
+		color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
+		color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
+	)
+	fmt.Printf(
+		"%s: min=%v avg=%v max=%v stddev=%v\n",
+		color.New(color.FgHiWhite, color.Bold).Sprintf("ROUND TRIP"),
+		color.New(color.FgHiBlue, color.Bold).Sprintf("%v", stats.MinRtt),
+		color.New(color.FgHiCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
+		color.New(color.FgHiGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
+		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
+	)
 }
 
 func renderASCIIArt(idx int) string {
