@@ -25,6 +25,23 @@
 
 </div>
 
+## Usage
+
+Simply specify the target host name or IP address in the first argument.
+
+```
+Usage:
+  pingu [OPTIONS] HOST
+
+`ping` command but with pingu
+
+Application Options:
+  -V, --version  Show version
+
+Help Options:
+  -h, --help     Show this help message
+```
+
 ## Installation
 
 You can download executable binaries from the latest release page.

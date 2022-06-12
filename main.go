@@ -39,10 +39,11 @@ var pingu = []string{
 
 // nolint:gochecknoglobals
 var (
-	appName     = "pingu"
-	appUsage    = "[OPTIONS] HOST"
-	appVersion  = "???"
-	appRevision = "???"
+	appName        = "pingu"
+	appUsage       = "[OPTIONS] HOST"
+	appDescription = "`ping` command but with pingu"
+	appVersion     = "???"
+	appRevision    = "???"
 )
 
 type exitCode int
@@ -71,6 +72,8 @@ func run(cliArgs []string) (exitCode, error) {
 	parser := flags.NewParser(&opts, flags.Default)
 	parser.Name = appName
 	parser.Usage = appUsage
+	parser.ShortDescription = appDescription
+	parser.LongDescription = appDescription
 
 	args, err := parser.ParseArgs(cliArgs)
 	if err != nil {
@@ -110,7 +113,6 @@ func run(cliArgs []string) (exitCode, error) {
 	return exitCodeOK, nil
 }
 
-// nolint:forbidigo
 func initPinger(host string) (*ping.Pinger, error) {
 	pinger, err := ping.NewPinger(host)
 	if err != nil {
