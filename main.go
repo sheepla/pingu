@@ -61,7 +61,12 @@ type options struct {
 func main() {
 	code, err := run(os.Args[1:])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[ERROR] %s\n", err)
+		fmt.Fprintf(
+			os.Stderr,
+			"[ %v ] %s\n",
+			color.New(color.FgRed, color.Bold).Sprint("ERROR"),
+			err,
+		)
 	}
 
 	os.Exit(int(code))
@@ -160,7 +165,7 @@ func pingerOnrecv(pkt *ping.Packet) {
 // nolint:forbidigo
 func pingerOnFinish(stats *ping.Statistics) {
 	color.New(color.FgWhite, color.Bold).Printf(
-		"\n───── %s ping statistics ─────\n",
+		"\n───────── %s ping statistics ─────────\n",
 		stats.Addr,
 	)
 	fmt.Printf(
