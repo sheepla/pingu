@@ -29,13 +29,13 @@
 
 You can download executable binaries from the latest release page.
 
-> [latest release](https://github.com/sheepla/pingu/releases/latest)
+> [![Latest Release](https://img.shields.io/github/v/release/sheepla/pingu?style=flat-square)](https://github.com/sheepla/pingu/releases/latest)
 
 To build from source, clone this repository then run `go install`. Developing on `go1.18.3 linux/amd64`.
 
 ## LICENSE
 
-MIT
+[MIT](./LICENSE)
 
 ## Author
 
