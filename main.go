@@ -108,7 +108,7 @@ func run(cliArgs []string) (exitCode, error) {
 
 	pinger, err := initPinger(args[0])
 	if err != nil {
-		return exitCodeOK, fmt.Errorf("failed to init pinger: %w", err)
+		return exitCodeOK, fmt.Errorf("an error occurred while initializing pinger: %w", err)
 	}
 
 	if err := pinger.Run(); err != nil {
