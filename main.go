@@ -62,7 +62,7 @@ func main() {
 	code, err := run(os.Args[1:])
 	if err != nil {
 		fmt.Fprintf(
-			os.Stderr,
+			color.Error,
 			"[ %v ] %s\n",
 			color.New(color.FgRed, color.Bold).Sprint("ERROR"),
 			err,
