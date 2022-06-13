@@ -129,9 +129,8 @@ func initPinger(host string) (*ping.Pinger, error) {
 	signal.Notify(c, os.Interrupt)
 
 	go func() {
-		for range c {
-			pinger.Stop()
-		}
+		<-c
+		pinger.Stop()
 	}()
 
 	color.New(color.FgHiWhite, color.Bold).Printf(
