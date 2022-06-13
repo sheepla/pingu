@@ -151,7 +151,7 @@ func initPinger(host string) (*ping.Pinger, error) {
 
 // nolint:forbidigo
 func pingerOnrecv(pkt *ping.Packet) {
-	fmt.Printf("%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
+	fmt.Printf("\r%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
 		renderASCIIArt(pkt.Seq),
 		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
@@ -183,10 +183,10 @@ func pingerOnFinish(stats *ping.Statistics) {
 		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 	)
 }
-
+	
 func renderASCIIArt(idx int) string {
 	if len(pingu) <= idx {
-		return strings.Repeat(" ", len(pingu[0]))
+		idx = idx % len(pingu)
 	}
 
 	line := pingu[idx]
