@@ -184,10 +184,10 @@ func pingerOnFinish(stats *ping.Statistics) {
 		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 	)
 }
-
+	
 func renderASCIIArt(idx int) string {
 	if len(pingu) <= idx {
-		return strings.Repeat(" ", len(pingu[0]))
+		idx = idx % len(pingu)
 	}
 
 	line := pingu[idx]
