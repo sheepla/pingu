@@ -27,7 +27,8 @@
 
 ## Usage
 
-Simply specify the target host name or IP address in the first argument.
+Simply specify the target host name or IP address in the first argument e.g. `pingu github.com` or `pingu 13.114.40.48`.
+You can change the number of transmissions by specifying the `-c` option.
 
 ```
 Usage:
@@ -37,6 +38,7 @@ Usage:
 
 Application Options:
   -V, --version  Show version
+  -c, --count=   Stop after <count> replies (default: 20)
 
 Help Options:
   -h, --help     Show this help message
@@ -48,7 +50,7 @@ You can download executable binaries from the latest release page.
 
 > [![Latest Release](https://img.shields.io/github/v/release/sheepla/pingu?style=flat-square)](https://github.com/sheepla/pingu/releases/latest)
 
-To build from source, clone this repository then run `go install`. Developing on `go1.18.3 linux/amd64`.
+To build from source, clone this repository then run `make build` or `go install`. Develo*ping* on `go1.18.3 linux/amd64`.
 
 ## LICENSE
 
