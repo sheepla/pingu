@@ -56,7 +56,7 @@ const (
 
 type options struct {
 	Version bool `short:"V" long:"version" description:"Show version"`
-	Count int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
+	Count   int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
 }
 
 func main() {
@@ -124,6 +124,7 @@ func initPinger(host string, opts options) (*ping.Pinger, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to init pinger %w", err)
 	}
+
 	pinger.Count = opts.Count
 
 	// Listen for Ctrl-C.
@@ -151,7 +152,6 @@ func initPinger(host string, opts options) (*ping.Pinger, error) {
 	return pinger, nil
 }
 
-// nolint:forbidigo
 func pingerOnrecv(pkt *ping.Packet) {
 	fmt.Fprintf(color.Output,
 		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
@@ -164,7 +164,6 @@ func pingerOnrecv(pkt *ping.Packet) {
 	)
 }
 
-// nolint:forbidigo
 func pingerOnFinish(stats *ping.Statistics) {
 	color.New(color.FgWhite, color.Bold).Printf(
 		"\n───────── %s ping statistics ─────────\n",
@@ -186,10 +185,10 @@ func pingerOnFinish(stats *ping.Statistics) {
 		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 	)
 }
-	
+
 func renderASCIIArt(idx int) string {
 	if len(pingu) <= idx {
-		idx = idx % len(pingu)
+		idx %= len(pingu)
 	}
 
 	line := pingu[idx]
