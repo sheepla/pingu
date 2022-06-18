@@ -56,6 +56,7 @@ const (
 
 type options struct {
 	Version bool `short:"V" long:"version" description:"Show version"`
+	Count int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
 }
 
 func main() {
@@ -106,7 +107,7 @@ func run(cliArgs []string) (exitCode, error) {
 		return exitCodeErrArgs, errors.New("too many arguments")
 	}
 
-	pinger, err := initPinger(args[0])
+	pinger, err := initPinger(args[0], opts)
 	if err != nil {
 		return exitCodeOK, fmt.Errorf("an error occurred while initializing pinger: %w", err)
 	}
@@ -118,11 +119,12 @@ func run(cliArgs []string) (exitCode, error) {
 	return exitCodeOK, nil
 }
 
-func initPinger(host string) (*ping.Pinger, error) {
+func initPinger(host string, opts options) (*ping.Pinger, error) {
 	pinger, err := ping.NewPinger(host)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init pinger %w", err)
 	}
+	pinger.Count = opts.Count
 
 	// Listen for Ctrl-C.
 	c := make(chan os.Signal, 1)
