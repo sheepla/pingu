@@ -151,7 +151,8 @@ func initPinger(host string) (*ping.Pinger, error) {
 
 // nolint:forbidigo
 func pingerOnrecv(pkt *ping.Packet) {
-	fmt.Printf("\r%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
+	fmt.Fprintf(color.Output,
+		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
 		renderASCIIArt(pkt.Seq),
 		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
@@ -167,14 +168,14 @@ func pingerOnFinish(stats *ping.Statistics) {
 		"\n───────── %s ping statistics ─────────\n",
 		stats.Addr,
 	)
-	fmt.Printf(
+	fmt.Fprintf(color.Output,
 		"%s: %v transmitted => %v received (%v loss)\n",
 		color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
 		color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
 		color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
 	)
-	fmt.Printf(
+	fmt.Fprintf(color.Output,
 		"%s: min=%v avg=%v max=%v stddev=%v\n",
 		color.New(color.FgHiWhite, color.Bold).Sprintf("ROUND TRIP"),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%v", stats.MinRtt),
