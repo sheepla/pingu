@@ -52,6 +52,11 @@ You can download executable binaries from the latest release page.
 
 To build from source, clone this repository then run `make build` or `go install`. Develo*ping* on `go1.18.3 linux/amd64`.
 
+Another way to install it if you have go in your machine just
+```
+go install github.com/sheepla/pingu@latest
+```
+
 ## LICENSE
 
 [MIT](./LICENSE)
