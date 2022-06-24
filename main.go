@@ -174,7 +174,7 @@ func pingerOnFinish(stats *ping.Statistics) {
 		color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
 		color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
-		color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
+		color.New(color.FgHiRed, color.Bold).Sprintf("%v", stats.PacketLoss),
 	)
 	fmt.Fprintf(color.Output,
 		"%s: min=%v avg=%v max=%v stddev=%v\n",
