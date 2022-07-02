@@ -24,7 +24,10 @@
 - [x] Colorful and fun output.
 - [x] Cross-platform support: Windows, macOS and Linux (also WSL)
 - [x] It works with a single executable file, so it can be installed easily.
+
+<!--
 - [x] Surpports IPv4 and IPv6.
+-->
 
 ## Usage
 
@@ -70,6 +73,9 @@ To run on WSL, give `CAP_NET_RAW` capability with the following command and star
 
 ```
 sudo setcap cap_net_raw=+ep /path/to/pingu
+```
+
+```
 pingu -P github.com
 ```
 
