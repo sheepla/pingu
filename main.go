@@ -55,8 +55,9 @@ const (
 )
 
 type options struct {
-	Version bool `short:"V" long:"version" description:"Show version"`
-	Count   int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
+	Count     int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
+	Privilege bool `short:"P" long:"privilege" description:"Enable privileged mode"`
+	Version   bool `short:"V" long:"version" description:"Show version"`
 }
 
 func main() {
@@ -145,7 +146,7 @@ func initPinger(host string, opts options) (*ping.Pinger, error) {
 	pinger.OnRecv = pingerOnrecv
 	pinger.OnFinish = pingerOnFinish
 
-	if runtime.GOOS == "windows" {
+	if opts.Privilege || runtime.GOOS == "windows" {
 		pinger.SetPrivileged(true)
 	}
 
