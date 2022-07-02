@@ -31,11 +31,12 @@ Usage:
 `ping` command but with pingu
 
 Application Options:
-  -V, --version  Show version
-  -c, --count=   Stop after <count> replies (default: 20)
+  -c, --count=     Stop after <count> replies (default: 20)
+  -P, --privilege  Enable privileged mode
+  -V, --version    Show version
 
 Help Options:
-  -h, --help     Show this help message
+  -h, --help       Show this help message
 ```
 
 ## Installation
