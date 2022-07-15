@@ -24,10 +24,7 @@
 - [x] Colorful and fun output.
 - [x] Cross-platform support: Windows, macOS and Linux (also WSL)
 - [x] It works with a single executable file, so it can be installed easily.
-
-<!--
 - [x] Surpports IPv4 and IPv6.
--->
 
 ## Usage
 
