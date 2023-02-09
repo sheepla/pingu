@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/go-ping/ping"
 	"github.com/jessevdk/go-flags"
+	probing "github.com/prometheus-community/pro-bing"
 )
 
 // nolint:gochecknoglobals
@@ -120,8 +120,8 @@ func run(cliArgs []string) (exitCode, error) {
 	return exitCodeOK, nil
 }
 
-func initPinger(host string, opts options) (*ping.Pinger, error) {
-	pinger, err := ping.NewPinger(host)
+func initPinger(host string, opts options) (*probing.Pinger, error) {
+	pinger, err := probing.NewPinger(host)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init pinger %w", err)
 	}
@@ -153,19 +153,19 @@ func initPinger(host string, opts options) (*ping.Pinger, error) {
 	return pinger, nil
 }
 
-func pingerOnrecv(pkt *ping.Packet) {
+func pingerOnrecv(pkt *probing.Packet) {
 	fmt.Fprintf(color.Output,
 		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
 		renderASCIIArt(pkt.Seq),
 		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
 		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
 		color.New(color.FgWhite, color.Bold).Sprintf("%s", pkt.IPAddr),
-		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.Ttl),
+		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.TTL),
 		color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
 	)
 }
 
-func pingerOnFinish(stats *ping.Statistics) {
+func pingerOnFinish(stats *probing.Statistics) {
 	color.New(color.FgWhite, color.Bold).Printf(
 		"\n───────── %s ping statistics ─────────\n",
 		stats.Addr,
