@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/fatih/color"
+	"github.com/gookit/color"
 	"github.com/jessevdk/go-flags"
 	probing "github.com/prometheus-community/pro-bing"
 )
@@ -64,7 +64,7 @@ func main() {
 	code, err := run(os.Args[1:])
 	if err != nil {
 		fmt.Fprintf(
-			color.Error,
+			os.Stderr,
 			"[ %v ] %s\n",
 			color.New(color.FgRed, color.Bold).Sprint("ERROR"),
 			err,
@@ -137,7 +137,7 @@ func initPinger(host string, opts options) (*probing.Pinger, error) {
 		pinger.Stop()
 	}()
 
-	color.New(color.FgHiWhite, color.Bold).Printf(
+	color.New(color.FgWhite, color.Bold).Printf(
 		"PING %s (%s) type `Ctrl-C` to abort\n",
 		pinger.Addr(),
 		pinger.IPAddr(),
@@ -154,14 +154,14 @@ func initPinger(host string, opts options) (*probing.Pinger, error) {
 }
 
 func pingerOnrecv(pkt *probing.Packet) {
-	fmt.Fprintf(color.Output,
+	fmt.Printf(
 		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
 		renderASCIIArt(pkt.Seq),
-		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
+		color.New(color.FgYellow, color.Bold).Sprintf("%d", pkt.Seq),
+		color.New(color.FgBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
 		color.New(color.FgWhite, color.Bold).Sprintf("%s", pkt.IPAddr),
-		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.TTL),
-		color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
+		color.New(color.FgCyan, color.Bold).Sprintf("%d", pkt.TTL),
+		color.New(color.FgMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
 	)
 }
 
@@ -170,19 +170,19 @@ func pingerOnFinish(stats *probing.Statistics) {
 		"\n───────── %s ping statistics ─────────\n",
 		stats.Addr,
 	)
-	fmt.Fprintf(color.Output,
+	fmt.Printf(
 		"%s: %v transmitted => %v received (%v loss)\n",
-		color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
-		color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
-		color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
+		color.New(color.FgWhite, color.Bold).Sprintf("PACKET STATISTICS"),
+		color.New(color.FgBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
+		color.New(color.FgGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
+		color.New(color.FgRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
 	)
-	fmt.Fprintf(color.Output,
+	fmt.Printf(
 		"%s: min=%v avg=%v max=%v stddev=%v\n",
-		color.New(color.FgHiWhite, color.Bold).Sprintf("ROUND TRIP"),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%v", stats.MinRtt),
-		color.New(color.FgHiCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
-		color.New(color.FgHiGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
+		color.New(color.FgWhite, color.Bold).Sprintf("ROUND TRIP"),
+		color.New(color.FgBlue, color.Bold).Sprintf("%v", stats.MinRtt),
+		color.New(color.FgCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
+		color.New(color.FgGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
 		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 	)
 }
@@ -194,15 +194,15 @@ func renderASCIIArt(idx int) string {
 
 	line := pingu[idx]
 
-	line = colorize(line, 'R', color.New(color.FgHiRed, color.Bold))
-	line = colorize(line, 'Y', color.New(color.FgHiYellow, color.Bold))
-	line = colorize(line, 'B', color.New(color.FgHiBlack, color.Bold))
-	line = colorize(line, 'W', color.New(color.FgHiWhite, color.Bold))
+	line = colorize(line, 'R', color.New(color.FgRed, color.Bold))
+	line = colorize(line, 'Y', color.New(color.FgYellow, color.Bold))
+	line = colorize(line, 'B', color.New(color.FgBlack, color.Bold))
+	line = colorize(line, 'W', color.New(color.FgWhite, color.Bold))
 
 	return line
 }
 
-func colorize(text string, target rune, color *color.Color) string {
+func colorize(text string, target rune, color color.PrinterFace) string {
 	return strings.ReplaceAll(
 		text,
 		string(target),
